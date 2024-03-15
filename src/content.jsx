@@ -2,10 +2,13 @@ import { PhotosIndex } from "./PhotosIndex";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { PhotosNew } from "./PhotosNew";
+import { Modal } from "./Modal";
 
 
 export function Content() {
     const [photos, setPhotos] = useState([]);
+    const [isPhotosShowVisible, setIsPhotosShowVisible] = useState(false);
+    const [currentPhoto, setCurrentPhoto] = useState({});
 
    const handleIndexPhotos = () => {
      console.log("handleIndexPhotos");
@@ -23,11 +26,25 @@ export function Content() {
          });
        };
 
+       const handleShowPhoto = (photo) => {
+             console.log("handleShowPhoto", photo);
+             setIsPhotosShowVisible(true);
+             setCurrentPhoto(photo);
+           };
+        
+           const handleClose = () => {
+             console.log("handleClose");
+             setIsPhotosShowVisible(false);
+           };
+
    useEffect(handleIndexPhotos, []);
 
     return(
         <div>
         <PhotosNew onCreatePhoto={handleCreatePhoto} />
-        <PhotosIndex photos={photos} />
+        <PhotosIndex photos={photos} onShowPhoto={handleShowPhoto}/>
+        <Modal show={isPhotosShowVisible} onClose={handleClose}>
+         <h1>Test</h1>
+       </Modal>
         </div>
     )}

@@ -9,6 +9,7 @@ export function PhotosIndex(props) {
            <img src={photo.url} />
            <p>Width: {photo.width}</p>
            <p>Height: {photo.height}</p>
+           <button onClick={() => props.onShowPhoto(photo)}>More info</button>
          </div>
        ))}
       </div>
